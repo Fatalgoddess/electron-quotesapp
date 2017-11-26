@@ -1,0 +1,52 @@
+<head>
+  <title>Quotes</title>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+  href="style.css">
+  <link rel="stylesheet" type="text/css"
+  href="bootstrap/bootstrap.css">
+</head>
+
+<body>
+  <header class="dark-purple">
+    <h1>Welcome to quotes</h1>
+  </header>
+
+  <section id="add-quote-section" class="container">
+    <form id="add-quote-form" class="form-group">
+      <label for="quote-to-add">Add a quote:</label>
+      <textarea  id="quote-to-add" class="form-control" rows="5" placeholder="Once upon a time.." autofocus></textarea>
+      <input id ="author" type="text" placeholder="Author">
+      <button id="quote-submit-button" type="submit" class="dark-purple">Go!</button>
+    </form>
+  </section>
+
+  <nav class="container-fluid bottom-nav">
+    <ul class="row">
+      <li class="col"><a href="allquotes.html">My Quotes</a></li>
+      <li class="col active"><a href="main.html">Add a Quote</a></li>
+    </ul>
+  </nav>
+
+  <script>
+  window.jQuery = window.$ = require('jquery');
+  const electron = require('electron');
+  const{ipcRenderer}= electron;
+
+  $('#add-quote-form').submit(function(event){
+    event.preventDefault();
+    var author = $('#author').val();
+    var quote = $('#quote-to-add').val();
+    if(quote == ""){
+      alert("Please add a Quote");
+    } else {
+      if(author == ""){
+        author = "Unknown";
+      }
+       quote = " \" " + quote +  " \" ";
+       document.getElementById('add-quote-form').reset();
+       ipcRenderer.send('quote:add', author, quote);
+  }
+  });
+  </script>
+</body>

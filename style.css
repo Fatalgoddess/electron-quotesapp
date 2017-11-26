@@ -1,0 +1,78 @@
+@font-face{
+  font-family: bookFont;
+  src:url(fonts/SpectralSC-Regular.ttf);
+}
+
+body{
+  background-color: #8B5FBF !important;
+  font-family: bookFont !important;
+  color: white !important;
+}
+
+/*HEADER*******************/
+header{
+  background-color:   #643A71 !important;
+  height: 20%;
+  width: 100%;
+  text-align: center;
+}
+
+header h1{
+  padding: 6% 0;
+}
+
+/*NAVIGATION*******************/
+nav.bottom-nav{
+  background-color: #8B5FBF !important;
+  position: fixed;
+  bottom: 0;
+  height: 10%;
+}
+nav.bottom-nav a{
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+}
+
+nav ul{
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+nav a{
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+}
+
+nav.bottom-nav ul li{
+  height: 100%;
+}
+
+nav ul li:hover{
+  background-color: #D183C9;
+}
+
+nav ul a:hover{
+  text-decoration: none;
+  color: white;
+}
+
+nav li.active{
+  background-color: #D183C9;
+}
+
+/*SECTIONS*******************/
+#add-quote-section{
+  margin-top: 10%;
+  text-align: center;
+}
+
+#quote-submit-button{
+  background-color:   #643A71;
+  color: white;
+  margin-top: 5%;
+  border: none;
+  padding: 1% 2%;
+}
