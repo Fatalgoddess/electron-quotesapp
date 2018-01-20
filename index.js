@@ -8,7 +8,7 @@ db.loadDatabase();
 app.on('ready', () => {
   //TODO: Set icon property for OSX,
   //for additional windows;
-  mainWindow = new BrowserWindow({icon:'images/app-icon.png'});
+  mainWindow = new BrowserWindow({icon:'assets/images/app-icon.png'});
   mainWindow.loadURL(`file://${__dirname}/main.html`);
   //Load menu
   const mainMenu = Menu.buildFromTemplate(menuTemplate);
