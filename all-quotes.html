@@ -1,0 +1,83 @@
+<head>
+  <title>Quotes</title>
+  <script src="./assets/bootstrap/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./assets/style.css">
+  <link rel="stylesheet" type="text/css" href="./assets/bootstrap/bootstrap.css">
+</head>
+
+<body>
+    <header class="dark-purple">
+      <h1>All Quotes</h1>
+    </header>
+
+    <nav class="container-fluid">
+      <ul class="row">
+        <li class="col "><a href="#" onclick="sortByAuthor();">Sort by author</a></li>
+        <li class="col "><a href="#" onclick="sortByDate();">Sort by date added</a></li>
+      </ul>
+    </nav>
+
+    <section id="all-quotes-section">
+      <ul id="all-quotes" class="container">
+      </ul>
+    </section>
+
+    <nav class="container-fluid bottom-nav">
+      <ul class="row">
+        <li class="col"><a href="all-quotes.html">My Quotes</a></li>
+        <li class="col"><a href="main.html">Add a Quote</a></li>
+      </ul>
+    </nav>
+</body>
+<script>
+const electron = require('electron');
+const{ipcRenderer}= electron;
+let results;
+let sortByDateClicked = 0;
+let sortByAuthorClicked = 0;
+
+window.$ = window.jQuery = require('jquery');
+
+ipcRenderer.send('quotes:getQuotes');
+
+ipcRenderer.on('quotes:receiveQuotes', (event, docs) =>{
+  results= docs;
+  for(var i = 0; i < docs.length; i++){
+    $('#all-quotes').append("<li>" + docs[i].author + " : " + docs[i].quote + "</li>");
+  }
+});
+
+function sortByAuthor(){
+        results.sort(function(a, b){
+        var authorA=a.author.toLowerCase(), authorB=b.author.toLowerCase();
+        if (authorA < authorB) //sort string ascending
+          return -1;
+        if (authorA > authorB)
+          return 1;
+        return 0; //default return value (no sorting)
+      });
+      reSortResultsArray();
+    }
+
+function sortByDate(){
+        results.sort(function(a, b){
+          var dateA = new Date(a.day);
+          var dateB = new Date(b.day);
+          if(sortByDateClicked %2== 0){
+            return dateB - dateA;
+          }
+          else{
+            return dateA - dateB;
+          }
+        });
+      sortByDateClicked++;
+      reSortResultsArray();
+  }
+
+function reSortResultsArray(){
+  $('#all-quotes').html("");
+  for(i = 0; i < results.length; i++){
+    $('#all-quotes').append("<li>" + results[i].author + " : " + results[i].quote + "</li>");
+  }
+}
+</script>
